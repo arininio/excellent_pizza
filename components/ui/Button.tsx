@@ -36,9 +36,9 @@ export default function Button({
   // If href starts with "tel:", render as anchor tag
   if (href?.startsWith("tel:")) {
     return (
-      <a href={href} className={combinedClassName} onClick={onClick}>
-        {Icon && <Icon size={20} />}
-        {children}
+      <a href={href} className={`${combinedClassName} whitespace-nowrap`} onClick={onClick}>
+        {Icon && <Icon size={16} className="flex-shrink-0" />}
+        <span className="whitespace-nowrap">{children}</span>
       </a>
     );
   }
