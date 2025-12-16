@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { Menu, X, Phone } from "lucide-react";
 import Button from "./ui/Button";
@@ -9,6 +10,8 @@ import Button from "./ui/Button";
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,11 +22,54 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavClick = (href: string, anchor: string | null, e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+
+    // If it's a menu page link, navigate to menu page
+    if (href === "/menu") {
+      router.push("/menu");
+      return;
+    }
+
+    // If we're on the menu page and clicking a home page link, navigate to home first
+    if (pathname === "/menu" && anchor) {
+      router.push("/");
+      // Wait for navigation, then scroll
+      setTimeout(() => {
+        const element = document.querySelector(anchor);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+      return;
+    }
+
+    // If we're on the home page, scroll to section
+    if (pathname === "/" && anchor) {
+      const element = document.querySelector(anchor);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
+  const isActive = (href: string, anchor: string | null) => {
+    if (href === "/menu") {
+      return pathname === "/menu";
+    }
+    // For home page, only "Home" link should be active
+    if (pathname === "/" && anchor === "#hero") {
+      return true;
+    }
+    return false;
+  };
+
   const navLinks = [
-    { href: "#hero", label: "Home" },
-    { href: "#menu", label: "Menu" },
-    { href: "#about", label: "About" },
-    { href: "#hours-location", label: "Hours and Location" },
+    { href: "/", anchor: "#hero", label: "Home" },
+    { href: "/menu", anchor: null, label: "Menu" },
+    { href: "/", anchor: "#about", label: "About" },
+    { href: "/", anchor: "#hours-location", label: "Hours and Location" },
   ];
 
   return (
@@ -52,16 +98,12 @@ export default function Header() {
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
-                key={link.href}
-                href={link.href}
-                className="text-brand-navy font-body font-medium hover:text-brand-red transition-colors"
-                onClick={(e) => {
-                  e.preventDefault();
-                  const element = document.querySelector(link.href);
-                  if (element) {
-                    element.scrollIntoView({ behavior: "smooth" });
-                  }
-                }}
+                key={`${link.href}-${link.anchor || ""}`}
+                href={link.anchor ? `${link.href}${link.anchor}` : link.href}
+                className={`text-brand-navy font-body hover:text-brand-red transition-colors ${
+                  isActive(link.href, link.anchor) ? "font-bold" : "font-medium"
+                }`}
+                onClick={(e) => handleNavClick(link.href, link.anchor, e)}
               >
                 {link.label}
               </a>
@@ -95,17 +137,12 @@ export default function Header() {
             <nav className="flex flex-col gap-4">
               {navLinks.map((link) => (
                 <a
-                  key={link.href}
-                  href={link.href}
-                  className="text-brand-navy font-body font-medium hover:text-brand-red transition-colors py-2"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setIsMobileMenuOpen(false);
-                    const element = document.querySelector(link.href);
-                    if (element) {
-                      element.scrollIntoView({ behavior: "smooth" });
-                    }
-                  }}
+                  key={`${link.href}-${link.anchor || ""}`}
+                  href={link.anchor ? `${link.href}${link.anchor}` : link.href}
+                  className={`text-brand-navy font-body hover:text-brand-red transition-colors py-2 ${
+                    isActive(link.href, link.anchor) ? "font-bold" : "font-medium"
+                  }`}
+                  onClick={(e) => handleNavClick(link.href, link.anchor, e)}
                 >
                   {link.label}
                 </a>

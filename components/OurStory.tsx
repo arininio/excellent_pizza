@@ -14,13 +14,13 @@ export default function OurStory() {
 
             {/* Headline */}
             <h2 className="font-heading text-4xl md:text-5xl font-bold leading-tight text-white">
-              A Family Tradition Since 1978
+              A Family Tradition Since 1962
             </h2>
 
             {/* Body Text */}
             <div className="space-y-4">
               <p className="font-body text-lg leading-relaxed text-[#FDFBF7]/90">
-                For almost half a century now, Excellent Pizza has been the go-to spot for
+                For almost over a century now, Excellent Pizza has been the go-to spot for
                 families in Somerset and the surrounding South Coast. It all
                 started with a simple belief: great food brings great people together.
               </p>

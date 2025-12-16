@@ -14,7 +14,7 @@ export default function Hero() {
             Serving Up Excellence in Every Slice
           </h1>
           <p className="text-lg md:text-xl text-brand-navy/80 font-body">
-            Feeding Somerset Families Since 1978
+            Family Owned and Operated Since 1962
           </p>
           <div className="flex flex-col gap-4 items-center">
             <Button

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Download } from "lucide-react";
 import Section from "./ui/Section";
 import Button from "./ui/Button";
@@ -93,13 +92,14 @@ export default function MenuImageGrid() {
           </Button>
           <div className="flex items-center gap-2 text-brand-navy/80 font-body">
             <span>or</span>
-            <Link
-              href="/menu.pdf"
+            <a
+              href="/excellent-pizza-full-menu.pdf"
+              download
               className="inline-flex items-center gap-2 text-brand-navy hover:text-brand-red transition-colors font-medium underline"
             >
               <Download size={16} />
               <span>download PDF</span>
-            </Link>
+            </a>
           </div>
         </div>
       </div>

@@ -18,6 +18,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Excellent Pizza | Somerset, MA",
   description: "Family owned pizza, subs, and seafood in Somerset. Call for takeout and delivery.",
+  icons: {
+    icon: "/excellent_favicon.png",
+    apple: "/excellent_favicon.png",
+  },
 };
 
 export default function RootLayout({
