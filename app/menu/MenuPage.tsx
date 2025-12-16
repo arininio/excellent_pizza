@@ -1,6 +1,7 @@
 "use client";
 
 import Section from "@/components/ui/Section";
+import { Download } from "lucide-react";
 import MenuSection from "./components/MenuSection";
 import PizzaSection from "./components/PizzaSection";
 import SpecialtyPizzaSection from "./components/SpecialtyPizzaSection";
@@ -31,8 +32,20 @@ export default function MenuPage() {
           <h2 className="font-heading text-3xl md:text-4xl text-brand-navy mb-2">
             Menu
           </h2>
-          <p className="text-base text-brand-navy/70 font-body mb-10 leading-relaxed">
+          <p className="text-base text-brand-navy/70 font-body mb-2 leading-relaxed">
             Scroll to see full menu or tap a section to jump down
+          </p>
+          <p className="text-base text-brand-navy/70 font-body mb-10 leading-relaxed">
+            or{" "}
+            <a
+              href="/excellent-pizza-full-menu.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-brand-navy hover:text-brand-red transition-colors underline font-normal"
+            >
+              <Download size={14} />
+              Download PDF
+            </a>
           </p>
 
           <nav className="space-y-2">
@@ -40,7 +53,7 @@ export default function MenuPage() {
               <a
                 key={section.id}
                 href={`#${section.id}`}
-                className="block text-lg font-body text-brand-navy hover:text-brand-red transition-colors py-3 px-2 min-h-[44px] flex items-center justify-center"
+                className="block text-lg font-body font-bold text-brand-navy hover:text-brand-red transition-colors py-3 px-2 min-h-[44px] flex items-center justify-center"
                 onClick={(e) => {
                   e.preventDefault();
                   const element = document.querySelector(`#${section.id}`);
